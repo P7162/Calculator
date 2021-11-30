@@ -1,13 +1,8 @@
 
 
 
-function getHistory(){
-	return document.getElementById("history-value").innerText;
-}
-function History(num){
-	document.getElementById("history-value").innerText=num;
-}
-function getOutput(){
+
+function getOutputValue(){
 	return document.getElementById("output-value").innerText;
 }
 function Output(number){
@@ -15,10 +10,17 @@ function Output(number){
 		document.getElementById("output-value").innerText=number;
 	}
 	else{
-		document.getElementById("output-value").innerText=getFormattedNumber(number);
+		document.getElementById("output-value").innerText=getFormattedNumberValue(number);
 	}	
 }
-function getFormattedNumber(number){
+
+function getHistoryValue(){
+	return document.getElementById("history-value").innerText;
+}
+function History(num){
+	document.getElementById("history-value").innerText=num;
+}
+function getFormattedNumberValue(number){
 	if(number=="-"){
 		return "";
 	}
@@ -26,55 +28,56 @@ function getFormattedNumber(number){
 	let output = num.toLocaleString("en");
 	return output;
 }
-function reverseNumber(number){
+function getReverseNumber(number){
 	return Number(number.replace(/,/g,''));
 }
-let operator = document.getElementsByClassName("operator");
-for(let i =0;i<operator.length;i++){
-	operator[i].addEventListener('click',function(){
+let output = document.getElementsByClassName("operator");
+for(let i =0;i<output.length;i++){
+	output[i].addEventListener('click',function(){
 		if(this.id=="clear"){
 			History("");
 			Output("");
 		}
 		else if(this.id=="backspace"){
-			let output=reverseNumber(getOutput()).toString();
+			let output=getReverseNumber(getOutputValue()).toString();
 			if(output){
 				output= output.substr(0,output.length-1);
 				Output(output);
 			}
 		}
 		else{
-			let output=getOutput();
-			let history=getHistory();
-			if(output==""&&history!=""){
-				if(isNaN(history[history.length-1])){
-					history= history.substr(0,history.length-1);
+			let result=getOutputValue();
+			let past=getHistoryValue();
+			if(result==""&&past!=""){
+				if(isNaN(past[past.length-1])){
+					past= past.substr(0,past.length-1);
 				}
 			}
-			if(output!="" || history!=""){
-				output= output==""?output:reverseNumber(output);
-				history=history+output;
+			if(result!="" || past!=""){
+				result= result==""?result:getReverseNumber(result);
+				past=past+result;
 				if(this.id=="="){
-					let result=eval(history);
+					let result=eval(past);
 					Output(result);
 					History("");
 				}
 				else{
-					history=history+this.id;
-					History(history);
+					past=past+this.id;
+					History(past);
 					Output("");
 				}
 			}
 		}
 	});
 }
-let number = document.getElementsByClassName("number");
-for(let i =0;i<number.length;i++){
-	number[i].addEventListener('click',function(){
-		let output=reverseNumber(getOutput());
+let num = document.getElementsByClassName("number");
+for(let i =0;i<num.length;i++){
+	num[i].addEventListener('click',function(){
+		let output=getReverseNumber(getOutputValue());
 		if(output!=NaN){
 			output=output+this.id;
-			Output(output);
+			Output(output); 
 		}
 	});
 }
+
