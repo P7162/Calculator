@@ -1,16 +1,11 @@
-
-
-
-
 function getOutputValue() {
 	return document.getElementById("output-value").innerText;
 }
 
-function Output(number) {
+function output(number) {
 	if (number == "") {
 		document.getElementById("output-value").innerText = number;
-	}
-	else {
+	} else {
 		document.getElementById("output-value").innerText = getFormattedNumberValue(number);
 	}
 }
@@ -19,7 +14,7 @@ function getHistoryValue() {
 	return document.getElementById("history-value").innerText;
 }
 
-function History(num) {
+function history(num) {
 	document.getElementById("history-value").innerText = num;
 }
 
@@ -43,15 +38,13 @@ for (let i = 0; i < output.length; i++) {
 		if (this.id == "clear") {
 			History("");
 			Output("");
-		}
-		else if (this.id == "backspace") {
+		} else if (this.id == "backspace") {
 			let output = getReverseNumber(getOutputValue()).toString();
 			if (output) {
 				output = output.substr(0, output.length - 1);
 				Output(output);
 			}
-		}
-		else {
+		} else {
 			let result = getOutputValue();
 			let past = getHistoryValue();
 			if (result == "" && past != "") {
@@ -66,8 +59,7 @@ for (let i = 0; i < output.length; i++) {
 					let result = eval(past);
 					Output(result);
 					History("");
-				}
-				else {
+				} else {
 					past = past + this.id;
 					History(past);
 					Output("");
@@ -87,4 +79,3 @@ for (let i = 0; i < num.length; i++) {
 		}
 	});
 }
-
