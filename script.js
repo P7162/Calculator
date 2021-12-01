@@ -69,8 +69,8 @@ for (let i = 0; i < output.length; i++) {
 	});
 }
 
-let num = document.getElementsByClassName("number");
-for (let i = 0; i < num.length; i++) {
+let num = document.getElementsByClassName("number"); // If the pressed button is muber
+for (let i = 0; i < num.length; i++) { //Simply display them in output box and concat them into a string for evaluation
 	num[i].addEventListener('click', function () {
 		let output = getReverseNumber(getOutputValue());
 		if (output != NaN) {
